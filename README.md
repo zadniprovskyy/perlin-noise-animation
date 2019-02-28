@@ -8,11 +8,13 @@
 
 ![](images/earth.gif)
 
-> ** To run the code: ** From the build directory type
+> **To run the code:** From the build directory type
 > 
 > ./shaderpipeline <path_to_input_file>
 
 where <path_to_input_file> should be replaced by something like ../data/test-01.json
+
+**The code will crash if you don't specify the input JSON file**
 
 ## Background
 
