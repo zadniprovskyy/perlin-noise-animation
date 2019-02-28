@@ -8,6 +8,12 @@
 
 ![](images/earth.gif)
 
+> ** To run the code: ** From the build directory type
+> 
+> ./shaderpipeline <path_to_input_file>
+
+where <path_to_input_file> should be replaced by something like ../data/test-01.json
+
 ## Background
 
 > ### Review chapters 6, 7 and sections 8.1-8.2 of _Fundamentals of Computer Graphics (4th Edition)_.
