@@ -21,8 +21,10 @@ vec3 blinn_phong(
   vec3 l)
 {
   /////////////////////////////////////////////////////////////////////////////
-  // Replace with your code 
-  return vec3(1,1,1);
+  // Replace with your code
+  vec3 h = normalize((l + v)/2);
+
+  return ka*0.03 + kd*max(0, dot(n,l)) + ks*pow(max(0, dot(n,h)), p);
   /////////////////////////////////////////////////////////////////////////////
 }
 

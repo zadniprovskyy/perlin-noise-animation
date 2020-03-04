@@ -16,8 +16,25 @@ out vec3 color;
 // expects: PI, blinn_phong
 void main()
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Replace with your code 
-  color = vec3(1,1,1);
-  /////////////////////////////////////////////////////////////////////////////
+
+    vec3 ka = vec3(1,1,1);
+    vec3 l = normalize(vec3( cos(M_PI*animation_seconds/3), 2, sin(M_PI*animation_seconds/3)));
+
+    vec3 kd = vec3(0,0,1), ks = vec3(0.5,0.5,0.5);
+
+    if (is_moon) {
+        kd = vec3(0.5,0.5,0.5), ks = vec3(0.5,0.5,0.5);
+    }
+
+    color = blinn_phong(
+        ka,
+        kd,
+        ks,
+        1000,
+        normalize(sphere_fs_in),
+        normalize(-view_pos_fs_in.xyz),
+        l
+    );
+
+
 }
