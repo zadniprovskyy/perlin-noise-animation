@@ -32,6 +32,29 @@ void main()
             kd = vec3(1,0,0), ks = vec3(0.5,0.5,0.5);
     }
 
-    color = kd * (perlin_noise((sin(sphere_fs_in/10)+1)*10)+1)/2;
+    int gs1 = 10;
+    float pn1 = perlin_noise(gs1*sin(sphere_fs_in/5));
+
+//     int gs2 = 5;
+//     float pn2 = perlin_noise(gs2*sin(sphere_fs_in/10));
+
+//     float pn = (pn1+pn2) / 2;
+
+    // used the following tutorial
+    // http://physbam.stanford.edu/cs448x/old/Procedural_Noise(2f)Perlin_Noise.html
+
+    float pixel_size = 0.125;
+
+    float turbulence_pn = 0;
+    float scale = 1;
+    vec3 pos = sphere_fs_in;
+
+    while (scale > pixel_size) {
+        pos /= scale;
+        turbulence_pn += perlin_noise(pos) * scale;
+        scale /= 2;
+    }
+
+    color = kd * (sin(turbulence_pn*M_PI)+1)/2;
 
 }
