@@ -12,11 +12,11 @@ mat4 model(int planet_id, float time)
   /////////////////////////////////////////////////////////////////////////////
   // Replace with your code
   if (planet_id == 0) {
-    return uniform_scale(0.3) * translate(vec3(sin(M_PI * time / 2.0) * 2 / 0.3, 0, cos(M_PI * time / 2.0) * 2 / 0.3)) * rotate_about_y(M_PI * time / 2.0);
+    return identity();
     // return transpose(translate(vec3(0, 2, 0)));//* rotate_about_y(time);
   }
   else if (planet_id == 1) {
-    return identity();
+    return uniform_scale(0.3) * translate(vec3(sin(M_PI * time / 2.0) * 2 / 0.3, 0, cos(M_PI * time / 2.0) * 2 / 0.3)) * rotate_about_y(M_PI * time / 2.0);
   }
   else if (planet_id == 2) {
     return uniform_scale(0.7) * translate(vec3(sin(M_PI * time / 2.0) * 2 / 0.3, 0, cos(M_PI * time / 2.0) * 2 / 0.3)) * rotate_about_y(M_PI * time / 2.0);

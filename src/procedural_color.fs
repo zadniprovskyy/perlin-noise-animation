@@ -20,41 +20,84 @@ void main()
     vec3 ka = vec3(1,1,1);
     vec3 l = normalize(vec3( cos(M_PI*animation_seconds/3), 2, sin(M_PI*animation_seconds/3)));
 
-    vec3 kd = vec3(0,0,1), ks = vec3(0.5,0.5,0.5);
+    vec3 ks;
 
     if (planet_id == 0) {
-        vec3 kd = vec3(0,0,1), ks = vec3(0.5,0.5,0.5);
+        ks = vec3(0.5,0.5,0.5);
+        float pixel_size = 0.125;
+
+        float turbulence_pn = 0;
+        float scale = 1;
+        vec3 pos = sphere_fs_in;
+
+        while (scale > pixel_size) {
+            pos /= scale;
+            turbulence_pn += perlin_noise(pos*5) * scale;
+            scale /= 2;
+        }
+
+        float x =sin((sphere_fs_in.y + turbulence_pn*3 + animation_seconds / 2)*M_PI);
+        x = sqrt(x+1)*.7071;;
+
+        color.g = 0.3 + 0.8*x;
+        x = sqrt(x);
+        color.r = 0.3 + 0.6*x;
+        color.b = 0.6 + 0.4*x;
+
+
     }
     else if (planet_id == 1) {
-        kd = vec3(0.5,0.5,0.5), ks = vec3(0.5,0.5,0.5);
+        ks = vec3(0.5,0.5,0.5);
+        float pixel_size = 0.125;
+
+        float turbulence_pn = 0;
+        float scale = 1;
+        vec3 pos = sphere_fs_in;
+
+        while (scale > pixel_size) {
+            pos /= scale;
+            turbulence_pn += perlin_noise(pos*5) * scale;
+            scale /= 2;
+        }
+
+        float x =sin((sphere_fs_in.y + turbulence_pn*3)*M_PI);
+        x = sqrt(x+1)*.7071;;
+
+        color.g = 0.3 + 0.8*x;
+        x = sqrt(x);
+        color.r = 0.3 + 0.6*x;
+        color.b = 0.6 + 0.4*x;
     }
     else if (planet_id == 2) {
-            kd = vec3(1,0,0), ks = vec3(0.5,0.5,0.5);
+            ks = vec3(0.5,0.5,0.5);
+            float pixel_size = 0.125;
+
+            float turbulence_pn = 0;
+            float scale = 1;
+            vec3 pos = sphere_fs_in;
+
+            while (scale > pixel_size) {
+                pos /= scale;
+                turbulence_pn += perlin_noise(pos*5) * scale;
+                scale /= 2;
+            }
+
+            float x =sin((sphere_fs_in.y + turbulence_pn*3)*M_PI);
+            x = sqrt(x+1)*.7071;;
+
+            color.r = 0.3 + 0.8*x;
+            x = sqrt(x);
+            color.g = 0.3 + 0.6*x;
+            color.b = 0.6 + 0.4*x;
     }
 
-    int gs1 = 10;
-    float pn1 = perlin_noise(gs1*sin(sphere_fs_in/5));
-
-//     int gs2 = 5;
-//     float pn2 = perlin_noise(gs2*sin(sphere_fs_in/10));
-
-//     float pn = (pn1+pn2) / 2;
-
-    // used the following tutorial
-    // http://physbam.stanford.edu/cs448x/old/Procedural_Noise(2f)Perlin_Noise.html
-
-    float pixel_size = 0.125;
-
-    float turbulence_pn = 0;
-    float scale = 1;
-    vec3 pos = sphere_fs_in;
-
-    while (scale > pixel_size) {
-        pos /= scale;
-        turbulence_pn += perlin_noise(pos) * scale;
-        scale /= 2;
-    }
-
-    color = kd * (sin(turbulence_pn*M_PI)+1)/2;
-
+    color = blinn_phong(
+            ka,
+            color,
+            ks,
+            1000,
+            normalize(sphere_fs_in),
+            normalize(-view_pos_fs_in.xyz),
+            l
+        );
 }
