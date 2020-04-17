@@ -8,7 +8,7 @@
 // Returns filtered output value
 float improved_smooth_step( float f)
 {
-  return -2*pow(f,3) + 3*pow(f,2);
+  return 6*pow(f,5) - 15*pow(f,4) + 10*pow(f,3);
 }
 vec3 improved_smooth_step( vec3 f)
 {

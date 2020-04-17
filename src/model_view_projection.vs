@@ -12,7 +12,7 @@ uniform mat4 proj;
 //                                number of seconds animation has been running
 uniform float animation_seconds;
 //                     whether we're rendering the moon or the other object
-uniform bool is_moon;
+uniform int planet_id;
 // Inputs:
 //                  3D position of mesh vertex
 in vec3 pos_vs_in; 
@@ -24,6 +24,6 @@ out vec4 pos_cs_in;
 void main()
 {
 
-  pos_cs_in = proj * view * model(is_moon, animation_seconds) * vec4(pos_vs_in,1.0);
+  pos_cs_in = proj * view * model(planet_id, animation_seconds) * vec4(pos_vs_in,1.0);
 
 }

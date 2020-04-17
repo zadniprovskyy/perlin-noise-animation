@@ -1,15 +1,13 @@
-// Given a 3d position as a seed, compute a smooth procedural noise
-// value: "Perlin Noise", also known as "Gradient noise".
+// Given a 3d position as a seed, compute an even smoother procedural noise
+// value. "Improving Noise" [Perlin 2002].
 //
 // Inputs:
 //   st  3D seed
-// Returns a smooth value between (-1,1)
+// Values between  -½ and ½ ?
 //
-// expects: random_direction, smooth_step
-
-//float interpolate(float x1, float x2, float x)
-
-float perlin_noise( vec3 st) {
+// expects: random_direction, improved_smooth_step
+float perlin_noise( vec3 st)
+{
   float fl_x = floor(st.x), fl_y = floor(st.y), fl_z = floor(st.z);
 
   float noise = 0;

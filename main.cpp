@@ -326,9 +326,9 @@ Usage:
     {
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-    for(int i = 0;i<2;i++)
+    for(int i = 0;i<3;i++)
     {
-      glUniform1i(glGetUniformLocation(prog_id, "is_moon"), i==1);
+        glUniform1i(glGetUniformLocation(prog_id, "planet_id"), i);
       glBindVertexArray(VAO);
       glDrawElements(GL_PATCHES, F.size(), GL_UNSIGNED_INT, 0);
       glBindVertexArray(0);

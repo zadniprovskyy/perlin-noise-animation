@@ -8,7 +8,7 @@
 uniform mat4 view;
 uniform mat4 proj;
 uniform float animation_seconds;
-uniform bool is_moon;
+uniform int planet_id;
 // Inputs:
 in vec3 sphere_fs_in;
 in vec3 normal_fs_in;
