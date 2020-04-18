@@ -18,8 +18,8 @@ out vec3 color;
 void main()
 {
     vec3 ka = vec3(1,1,1);
-    vec3 l = normalize(vec3( cos(M_PI*animation_seconds/3), 2, sin(M_PI*animation_seconds/3)));
-
+    // vec3 l = normalize(vec3( cos(M_PI*animation_seconds/3), 2, sin(M_PI*animation_seconds/3)));
+    vec3 l = normalize(vec3( 1, 2, 0));
     vec3 ks;
 
     if (planet_id == 0) {
@@ -48,7 +48,7 @@ void main()
     }
     else if (planet_id == 1) {
         ks = vec3(0.5,0.5,0.5);
-        float pixel_size = 0.125;
+        float pixel_size = 0.0001;
 
         float turbulence_pn = 0;
         float scale = 1;
@@ -56,17 +56,17 @@ void main()
 
         while (scale > pixel_size) {
             pos /= scale;
-            turbulence_pn += perlin_noise(pos*5) * scale;
+            turbulence_pn += perlin_noise(pos*(sin(animation_seconds))) * scale;
             scale /= 2;
         }
 
         float x =sin((sphere_fs_in.y + turbulence_pn*3)*M_PI);
         x = sqrt(x+1)*.7071;;
 
-        color.g = 0.3 + 0.8*x;
+        color.g = 0.1 + 0.8*x;
         x = sqrt(x);
-        color.r = 0.3 + 0.6*x;
-        color.b = 0.6 + 0.4*x;
+        color.b = 0.6 + 0.6*x;
+        color.r = 0.1 + 0.4*x;
     }
     else if (planet_id == 2) {
             ks = vec3(0.5,0.5,0.5);
@@ -78,7 +78,7 @@ void main()
 
             while (scale > pixel_size) {
                 pos /= scale;
-                turbulence_pn += perlin_noise(pos*5) * scale;
+                turbulence_pn += perlin_noise(pos*(sin(animation_seconds / M_PI )) * 20) * scale;
                 scale /= 2;
             }
 
@@ -92,12 +92,12 @@ void main()
     }
 
     color = blinn_phong(
-            ka,
-            color,
-            ks,
-            1000,
-            normalize(sphere_fs_in),
-            normalize(-view_pos_fs_in.xyz),
-            l
-        );
+        ka,
+        color,
+        ks,
+        1000,
+        normalize(sphere_fs_in),
+        normalize(-view_pos_fs_in.xyz),
+        l
+    );
 }
