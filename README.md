@@ -1,5 +1,6 @@
 # CSC418 Final Project
 Yegor Zadniprovskyy (1003175002)
+
 Lecture section: LEC0101
 
 In this project I extended the shader pipline assignment (A6). I used perlin noise to generate marble like textures and animation.
